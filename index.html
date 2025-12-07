@@ -1,228 +1,275 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
-     <!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CozaStore - Akbar Qureshi</title>
 
-<!-- Font Awesome -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <title>CozaStore - Akbar Qureshi</title>
+  <!-- Styles -->
+  <link rel="stylesheet" type="text/css" href="styles.css"/>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+
+  <!-- Font Awesome (only one include; keep the latest) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-  
-  <header>
-  <div class="logo">
-    <img src="logo-01.png.webp" alt="logo">
-  </div>
 
-  <div class="navbar">
-    <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">Shop</a></li>
-      <li><a href="#">About</a></li>
-      <li><a href="#">Contact</a></li>
-    </ul>
-  </div>
-
-  <div class="icons">
-    <i class="fas fa-search"></i>
-    <i class="fas fa-shopping-cart"></i>
-    <i class="fas fa-heart"></i>
-  </div>
-</header>
-
-<div class="display">
-  <div class="text">
-    <h1>Men Collection 2024</h1>
-    <p>New Arrivals</p>
-    <button>Shop Now</button>
-  </div>
-</div>
-
-<section>
-  <div class="card">
-    <div class="overlay">
-      <h2>Women</h2>
-      <p>Spring 2018</p>
+  <header class="flex items-center justify-between md:justify-evenly  px-8 py-4 bg-gradient-to-r from-gray-200 to-gray-300 fixed top-0 w-full h-[70px] shadow-md z-[1000]">
+    <div class="logo">
+      <img src="logo-01.png.webp" alt="logo">
     </div>
-  </div>
 
-  <div class="card">
-    <div class="overlay">
-      <h2>Men</h2>
-      <p>Spring 2018</p>
+    <div class="navbar">
+      <ul>
+        <li><a href="#home" class="scroll-link">Home</a></li>
+        <li><a href="#shop" class="scroll-link">Shop</a></li>
+        <li><a href="#about" class="scroll-link">About</a></li>
+        <li><a href="#contact" class="scroll-link">Contact</a></li>
+      </ul>
     </div>
-  </div>
 
-  <div class="card">
-    <div class="overlay">
-      <h2>Accessories</h2>
-      <p>Spring 2018</p>
+    <div class="icons hidden md:flex">
+      <i class="fas fa-search"></i>
+      <i class="fas fa-shopping-cart" style="margin-left:20px"></i>
+      <i class="fas fa-heart" style="margin-left:20px"></i>
+      <i class="fa-solid fa-moon theme-toggle" style="margin-left:20px; cursor:pointer"></i>
     </div>
-  </div>
-</section>
 
-       <h1  class="product-h1">Product Overview</h1>
-       <div class="navbar-product">
-         <ul>
-            <a href=""><li>All Products</li></a>
-            <a href=""><li>Women</li></a>
-            <a href=""><li>Men</li></a>
-            <a href=""><li>Watches</li></a>
-         </ul>
-       </div>
+    <!-- Mobile menu button (visible under 650px) -->
+    <button class="menu-btn" aria-label="Open menu">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+  </header>
 
-      <main>
-        <div class="product-card">
-          <img src="product-01.jpg.webp" alt="product-01">
-          <h3>Esprit Ruffle Shirt<span><i class="fa-regular fa-heart"></i></span></h3>
-          <p>$16.64</p>
-        </div>
+  <!-- Sidebar for mobile -->
+  <aside class="sidebar" aria-hidden="true">
+    <div class="sidebar-header">
+      <img src="logo-01.png.webp" alt="logo">
+      <button class="close-sidebar" aria-label="Close menu">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <nav class="sidebar-nav">
+      <ul>
+        <li><a href="#home" class="scroll-link">Home</a></li>
+        <li><a href="#shop" class="scroll-link">Shop</a></li>
+        <li><a href="#about" class="scroll-link">About</a></li>
+        <li><a href="#contact" class="scroll-link">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="sidebar-icons">
+      <i class="fas fa-search"></i>
+      <i class="fas fa-shopping-cart" style="margin-left:20px"></i>
+      <i class="fas fa-heart" style="margin-left:20px"></i>
+      <i class="fa-solid fa-moon theme-toggle" style="margin-left:20px; cursor:pointer"></i>
+    </div>
+  </aside>
 
-        <div class="product-card">
-          <img src="product-02.jpg.webp" alt="product-02">
-          <h3>Herschel supply<span><i class="fa-regular fa-heart"></i></span></h3>
-          <p>$35.31</p>
-        </div>
+<div
+  id="home"
+  class="relative flex items-center justify-center md:justify-start w-full h-screen bg-cover bg-center text-center md:text-start "
+  style="background-image: url('slide-03.jpg');"
+>
+  <!-- Overlay (optional for better text contrast) -->
+  <div class="absolute inset-0 bg-black/40"></div>
 
-        <div class="product-card">
-          <img src="product-03.jpg (1).webp" alt="product-03">
-          <h3>Only Check Trouser<span><i class="fa-regular fa-heart"></i></span></h3>
-          <p>$25.50</p>
-        </div>
-
-        <div class="product-card">
-          <img src="product-04.jpg.webp" alt="product-04">
-          <h3>Classic Trench Coat<span><i class="fa-regular fa-heart"></i></span></h3>
-          <p>$75.00</p>
-        </div>
-
-        <div class="product-card">
-          <img src="product-05.jpg.webp" alt="product-05">
-          <h3>Front Pocket Jumper<span><i class="fa-regular fa-heart"></i></span></h3>
-          <p>$34.75</p>
-        </div>
-        
-        <div class="product-card">
-          <img src="product-06.jpg.webp" alt="product-06">
-          <h3>Vintage Inspired Classic<span><i class="fa-regular fa-heart"></i></span></h3>
-          <p>$93.20</p>
-        </div>
-        
-        <div class="product-card">
-          <img src="product-07.jpg.webp" alt="product-07">
-          <h3>Shirt in Stretch Cotton<span><i class="fa-regular fa-heart"></i></span></h3>
-          <p>$52.66</p>
-        </div>
-
-        <div class="product-card">
-          <img src="product-08.jpg.webp" alt="product-08">
-          <h3>Pieces Metallic Printed<span><i class="fa-regular fa-heart"></i></span></h3>
-          <p>$18.96</p>
-        </div>
-
-        <div class="product-card">
-          <img src="product-09.jpg.webp" alt="product-09">
-          <h3>Converse Plimsolls<span><i class="fa-regular fa-heart"></i></span></h3>
-          <p>$75.00</p>
-        </div>
-
-        <div class="product-card">
-          <img src="product-10.jpg.webp" alt="product-10">
-          <h3>Femme T-Shirt Stripe<span><i class="fa-regular fa-heart"></i></span></h3>
-          <p>$25.85</p>
-        </div>
-
-        <div class="product-card">
-          <img src="product-11.jpg.webp" alt="product-11">
-          <h3>Herschel supply<span><i class="fa-regular fa-heart"></i></span></h3>
-          <p>$63.16</p>
-        </div>
-
-        <div class="product-card">
-          <img src="product-12.jpg.webp" alt="product-12">
-          <h3>Herschel supply<span><i class="fa-regular fa-heart"></i></span></h3>
-          <p>$63.15</p>
-        </div>
-
-        <div class="product-card">
-          <img src="product-13.jpg.webp" alt="product-13">
-          <h3>T-Shirt with Sleeve<span><i class="fa-regular fa-heart"></i></span></h3>
-          <p>$18.49</p>
-        </div>
-
-        <div class="product-card">
-          <img src="product-14.jpg.webp" alt="product-14">
-          <h3>Pretty Little Thing<span><i class="fa-regular fa-heart"></i></span></h3>
-          <p>$54.79</p>
-        </div>
-
-        <div class="product-card">
-          <img src="product-15.jpg.webp" alt="product-15">
-          <h3>Mini Silver Watch<span><i class="fa-regular fa-heart"></i></span></h3>
-          <p>$86.85</p>
-        </div>
-
-        <div class="product-card">
-          <img src="product-16.jpg.webp" alt="product-16">
-          <h3>Square Neck Back<span><i class="fa-regular fa-heart"></i></span></h3>
-          <p>$29.64</p>
-        </div>
-      </main>
-
-
-  <div class="button">
-    <button>Load More
-
+  <div class="relative z-10 px-4 md:mt-20 md:ml-10">
+    <!-- Smaller text on mobile, larger on desktop -->
+    <h4 class="text-2xl  md:text-4xl font-bold text-black">
+      Men Collection 2024
+    </h4>
+    <h4 class="text-4xl md:text-7xl lg:text-8xl font-cursive text-black mt-2">
+      New Arrivals
+    </h4>
+    <button
+      class="mt-6 bg-sky-400 text-black px-10 py-3 rounded-full hover:bg-sky-500 transition duration-300 "
+    >
+      Shop Now
     </button>
   </div>
-
-<footer>
-  <div class="footer-child">
-    <h1>Categories</h1>
-    <ul>
-      <li><a href="#">Women</a></li>
-      <li><a href="#">Men</a></li>
-      <li><a href="#">Shoes</a></li>
-      <li><a href="#">Watches</a></li>
-    </ul>
-  </div>
-
-  <div class="footer-child">
-    <h1>Help</h1>
-    <ul>
-      <li><a href="#">Track Order</a></li>
-      <li><a href="#">Returns</a></li>
-      <li><a href="#">Shipping</a></li>
-      <li><a href="#">FAQs</a></li>
-    </ul>
-  </div>
-
-  <div class="footer-child">
-    <h1>Get In Touch</h1>
-    <p>Any questions? Visit us at 8th floor, 379 Hudson St, New York, NY 10018 or call (+1) 96 716 6879</p>
-    <div class="social-icons">
-      <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-      <a href="#"><i class="fa-brands fa-instagram"></i></a>
-      <a href="#"><i class="fa-brands fa-pinterest-p"></i></a>
-    </div>
-  </div>
-
-  <div class="footer-child">
-    <h1>Newsletter</h1>
-    <input type="email" placeholder="email@example.com" required>
-    <button>Subscribe</button>
-  </div>
-</footer>
-
-<div class="last">
-  <p>Copyright ©2024 All rights reserveds</p>
 </div>
 
-<script src="script.js"></script>
+
+  <section id="shop">
+    <div class="card">
+      <div class="overlay">
+        <h2>Women</h2>
+        <p>Spring 2018</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="overlay">
+        <h2>Men</h2>
+        <p>Spring 2018</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="overlay">
+        <h2>Accessories</h2>
+        <p>Spring 2018</p>
+      </div>
+    </div>
+  </section>
+
+  <h1 class="product-h1 text-3xl font-semibold md:text-5xl md:mt-10 mt-4" id="about">Product Overview</h1>
+  <div class="navbar-product hidden md:flex justify-center">
+    <ul>
+      <a href="#" class="filter-link"><li>All Products</li></a>
+      <a href="#" class="filter-link"><li>Women</li></a>
+      <a href="#" class="filter-link"><li>Men</li></a>
+      <a href="#" class="filter-link"><li>Watches</li></a>
+    </ul>
+  </div>
+
+  <main>
+    <div class="product-card">
+      <img src="product-01.jpg.webp" alt="product-01">
+      <h3>Esprit Ruffle Shirt<span><i class="fa-regular fa-heart"></i></span></h3>
+      <p>$16.64</p>
+    </div>
+
+    <div class="product-card">
+      <img src="product-02.jpg.webp" alt="product-02">
+      <h3>Herschel supply<span><i class="fa-regular fa-heart"></i></span></h3>
+      <p>$35.31</p>
+    </div>
+
+    <div class="product-card">
+      <img src="product-03.jpg (1).webp" alt="product-03">
+      <h3>Only Check Trouser<span><i class="fa-regular fa-heart"></i></span></h3>
+      <p>$25.50</p>
+    </div>
+
+    <div class="product-card">
+      <img src="product-04.jpg.webp" alt="product-04">
+      <h3>Classic Trench Coat<span><i class="fa-regular fa-heart"></i></span></h3>
+      <p>$75.00</p>
+    </div>
+
+    <div class="product-card">
+      <img src="product-05.jpg.webp" alt="product-05">
+      <h3>Front Pocket Jumper<span><i class="fa-regular fa-heart"></i></span></h3>
+      <p>$34.75</p>
+    </div>
+
+    <div class="product-card">
+      <img src="product-06.jpg.webp" alt="product-06">
+      <h3>Vintage Inspired Classic<span><i class="fa-regular fa-heart"></i></span></h3>
+      <p>$93.20</p>
+    </div>
+
+    <div class="product-card">
+      <img src="product-07.jpg.webp" alt="product-07">
+      <h3>Shirt in Stretch Cotton<span><i class="fa-regular fa-heart"></i></span></h3>
+      <p>$52.66</p>
+    </div>
+
+    <div class="product-card">
+      <img src="product-08.jpg.webp" alt="product-08">
+      <h3>Pieces Metallic Printed<span><i class="fa-regular fa-heart"></i></span></h3>
+      <p>$18.96</p>
+    </div>
+
+    <div class="product-card">
+      <img src="product-09.jpg.webp" alt="product-09">
+      <h3>Converse Plimsolls<span><i class="fa-regular fa-heart"></i></span></h3>
+      <p>$75.00</p>
+    </div>
+
+    <div class="product-card">
+      <img src="product-10.jpg.webp" alt="product-10">
+      <h3>Femme T-Shirt Stripe<span><i class="fa-regular fa-heart"></i></span></h3>
+      <p>$25.85</p>
+    </div>
+
+    <div class="product-card">
+      <img src="product-11.jpg.webp" alt="product-11">
+      <h3>Herschel supply<span><i class="fa-regular fa-heart"></i></span></h3>
+      <p>$63.16</p>
+    </div>
+
+    <div class="product-card">
+      <img src="product-12.jpg.webp" alt="product-12">
+      <h3>Herschel supply<span><i class="fa-regular fa-heart"></i></span></h3>
+      <p>$63.15</p>
+    </div>
+
+    <div class="product-card">
+      <img src="product-13.jpg.webp" alt="product-13">
+      <h3>T-Shirt with Sleeve<span><i class="fa-regular fa-heart"></i></span></h3>
+      <p>$18.49</p>
+    </div>
+
+    <div class="product-card">
+      <img src="product-14.jpg.webp" alt="product-14">
+      <h3>Pretty Little Thing<span><i class="fa-regular fa-heart"></i></span></h3>
+      <p>$54.79</p>
+    </div>
+
+    <div class="product-card">
+      <img src="product-15.jpg.webp" alt="product-15">
+      <h3>Mini Silver Watch<span><i class="fa-regular fa-heart"></i></span></h3>
+      <p>$86.85</p>
+    </div>
+
+    <div class="product-card">
+      <img src="product-16.jpg.webp" alt="product-16">
+      <h3>Square Neck Back<span><i class="fa-regular fa-heart"></i></span></h3>
+      <p>$29.64</p>
+    </div>
+  </main>
+
+  <div class="button">
+    <button>Load More</button>
+  </div>
+
+  <footer id="contact">
+    <div class="footer-child">
+      <h1>Categories</h1>
+      <ul>
+        <li><a href="#">Women</a></li>
+        <li><a href="#">Men</a></li>
+        <li><a href="#">Shoes</a></li>
+        <li><a href="#">Watches</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-child">
+      <h1>Help</h1>
+      <ul>
+        <li><a href="#">Track Order</a></li>
+        <li><a href="#">Returns</a></li>
+        <li><a href="#">Shipping</a></li>
+        <li><a href="#">FAQs</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-child">
+      <h1>Get In Touch</h1>
+      <p>Any questions? Visit us at 8th floor, 379 Hudson St, New York, NY 10018 or call (+1) 96 716 6879</p>
+      <div class="social-icons">
+        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#"><i class="fa-brands fa-pinterest-p"></i></a>
+      </div>
+    </div>
+
+    <div class="footer-child">
+      <h1>Newsletter</h1>
+      <input type="email" placeholder="email@example.com" required>
+      <button>Subscribe</button>
+    </div>
+  </footer>
+
+  <div class="last">
+    <p>Copyright ©2024 All rights reserveds</p>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>

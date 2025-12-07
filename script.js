@@ -11,19 +11,27 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ===== NAVBAR SMOOTH SCROLL =====
-  const navLinks = document.querySelectorAll('.navbar a');
-  navLinks.forEach(link => {
-    link.addEventListener('click', e => {
-      e.preventDefault();
-      const targetId = link.getAttribute('href');
-      const target = document.querySelector(targetId);
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth' });
-      }
+  // ===== NAVBAR SMOOTH SCROLL (header + sidebar) =====
+  function enableSmoothScroll() {
+    const links = document.querySelectorAll('.scroll-link');
+    links.forEach(link => {
+      link.addEventListener('click', e => {
+        const href = link.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+            // close sidebar if open
+            sidebar.classList.remove('open');
+            document.body.style.overflow = '';
+          }
+        }
+      });
     });
-  });
+  }
 
+  // ===== Banner card click =====
   const bannerCards = document.querySelectorAll('section .card');
   bannerCards.forEach((card, index) => {
     card.addEventListener('click', () => {
@@ -32,8 +40,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ===== PRODUCT ICONS (LIKE/HEART) =====
-  function activateProductIcons() {
-    const productIcons = document.querySelectorAll('.product-card i');
+  function activateProductIcons(root = document) {
+    const productIcons = root.querySelectorAll('.product-card i');
     productIcons.forEach(icon => {
       icon.addEventListener('click', () => {
         icon.classList.toggle('active');
@@ -49,18 +57,22 @@ document.addEventListener('DOMContentLoaded', () => {
     loadMoreBtn.addEventListener('click', () => {
       const main = document.querySelector('main');
       if (main) {
+        // Create and append two new product cards
         for (let i = 0; i < 2; i++) {
           const card = document.createElement('div');
           card.className = 'product-card';
           card.innerHTML = `
-            <img src="https://via.placeholder.com/300x200" alt="New Product">
-            <h3>New Product <i class="fa-regular fa-heart"></i></h3>
+            <img src="https://via.placeholder.com/600x400" alt="New Product">
+            <h3>New Product ${i + 1}<span><i class="fa-regular fa-heart"></i></span></h3>
             <p>$99</p>
           `;
           main.appendChild(card);
         }
-        activateProductIcons();
-        addHoverZoom();
+        // Rebind interactions for new elements
+        activateProductIcons(main);
+        addHoverZoom(main);
+        // Update reveal list
+        updateRevealElements();
       }
     });
   }
@@ -80,7 +92,12 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ===== REVEAL ELEMENTS ON SCROLL =====
-  const revealElements = document.querySelectorAll('.product-card, section .card');
+  let revealElements = [];
+  function updateRevealElements() {
+    revealElements = Array.from(document.querySelectorAll('.product-card, section .card'));
+  }
+  updateRevealElements();
+
   window.addEventListener('scroll', () => {
     revealElements.forEach(el => {
       const rect = el.getBoundingClientRect();
@@ -116,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
   backToTopBtn.style.cursor = 'pointer';
   backToTopBtn.style.fontSize = '1.5rem';
   backToTopBtn.style.display = 'none';
-  backToTopBtn.style.backgroundColor = '#f0f0f0'; // Light mode default
+  backToTopBtn.style.backgroundColor = '#f0f0f0';
   backToTopBtn.style.color = '#000';
   document.body.appendChild(backToTopBtn);
 
@@ -129,14 +146,15 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ===== SIMPLE PRODUCT FILTER =====
-  const filterLinks = document.querySelectorAll('.navbar-product a');
+  const filterLinks = document.querySelectorAll('.filter-link');
   filterLinks.forEach(link => {
     link.addEventListener('click', e => {
       e.preventDefault();
       const category = link.textContent.toLowerCase();
       const products = document.querySelectorAll('.product-card');
       products.forEach(product => {
-        if (category === 'all products' || product.querySelector('h3').textContent.toLowerCase().includes(category)) {
+        const title = product.querySelector('h3').textContent.toLowerCase();
+        if (category === 'all products' || title.includes(category)) {
           product.style.display = 'block';
         } else {
           product.style.display = 'none';
@@ -145,45 +163,53 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // ===== DARK/LIGHT MODE BUTTON (Font Awesome Icons) =====
-  const themeBtn = document.createElement('button');
-  themeBtn.className = 'theme-toggle';
-  themeBtn.style.background = 'none';
-  themeBtn.style.border = 'none';
-  themeBtn.style.cursor = 'pointer';
-  themeBtn.style.fontSize = '1.5rem';
-  themeBtn.innerHTML = '<i class="fa-solid fa-moon" style="color:black"></i>';
+  // ===== HEADER ICONS (Search, Cart, Heart + Dark/Light) =====
   const headerIcons = header.querySelector('.icons');
-  headerIcons.appendChild(themeBtn);
+  // Ensure theme icon exists and is last
+  if (!headerIcons.querySelector('.theme-toggle')) {
+    const themeIconEl = document.createElement('i');
+    themeIconEl.className = 'fa-solid fa-moon theme-toggle';
+    themeIconEl.style.marginLeft = '20px';
+    themeIconEl.style.cursor = 'pointer';
+    headerIcons.appendChild(themeIconEl);
+  }
 
-  themeBtn.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-
-    // Hero text
+  // ===== DARK/LIGHT MODE =====
+  const themeIcon = document.querySelectorAll('.theme-toggle'); // both header and sidebar
+  function applyDarkModeStyles(isDark) {
     const heroTextElements = document.querySelectorAll('.text h1, .text p, .text button');
+    const overlayHeadings = document.querySelectorAll('section .overlay h2, section .overlay p');
 
-    if (document.body.classList.contains('dark-mode')) {
-      themeBtn.innerHTML = '<i class="fa-solid fa-sun" style="color:white"></i>';
-      document.body.style.backgroundColor = '#1b1b1b';
-      document.body.style.color = '#f0f0f0';
-      document.querySelectorAll('a, button, .product-card h3, .product-card p').forEach(el => el.style.color = '#f0f0f0');
-      heroTextElements.forEach(el => el.style.color = '#f0f0f0');
-      backToTopBtn.style.backgroundColor = '#333';
-      backToTopBtn.style.color = '#fff';
-    } else {
-      themeBtn.innerHTML = '<i class="fa-solid fa-moon" style="color:black"></i>';
-      document.body.style.backgroundColor = '#fff';
-      document.body.style.color = '#333';
-      document.querySelectorAll('a, button, .product-card h3, .product-card p').forEach(el => el.style.color = '#333');
-      heroTextElements.forEach(el => el.style.color = '#000');
-      backToTopBtn.style.backgroundColor = '#f0f0f0';
-      backToTopBtn.style.color = '#000';
-    }
+    themeIcon.forEach(icon => {
+      icon.className = isDark ? 'fa-solid fa-sun theme-toggle' : 'fa-solid fa-moon theme-toggle';
+      icon.style.color = isDark ? 'white' : 'black';
+    });
+
+    document.body.style.backgroundColor = isDark ? '#1b1b1b' : '#fff';
+    document.body.style.color = isDark ? '#f0f0f0' : '#333';
+
+    document.querySelectorAll('a, button, .product-card h3, .product-card p').forEach(el => {
+      el.style.color = isDark ? '#f0f0f0' : '#333';
+    });
+
+    heroTextElements.forEach(el => el.style.color = isDark ? '#f0f0f0' : (el.tagName === 'BUTTON' ? '#000' : '#111'));
+    overlayHeadings.forEach(el => el.style.color = isDark ? '#f0f0f0' : '#111');
+
+    backToTopBtn.style.backgroundColor = isDark ? '#333' : '#f0f0f0';
+    backToTopBtn.style.color = isDark ? '#fff' : '#000';
+  }
+
+  themeIcon.forEach(icon => {
+    icon.addEventListener('click', () => {
+      const isDark = !document.body.classList.contains('dark-mode');
+      document.body.classList.toggle('dark-mode');
+      applyDarkModeStyles(isDark);
+    });
   });
 
   // ===== HOVER ZOOM ANIMATION =====
-  function addHoverZoom() {
-    const productCards = document.querySelectorAll('.product-card');
+  function addHoverZoom(root = document) {
+    const productCards = root.querySelectorAll('.product-card');
     productCards.forEach(card => {
       card.addEventListener('mouseenter', () => {
         card.style.transform = 'scale(1.05)';
@@ -196,4 +222,36 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   addHoverZoom();
 
-});
+  // ===== MOBILE SIDEBAR =====
+  const sidebar = document.querySelector('.sidebar');
+  const menuBtn = document.querySelector('.menu-btn');
+  const closeSidebarBtn = document.querySelector('.close-sidebar');
+
+  if (menuBtn && sidebar) {
+    menuBtn.addEventListener('click', () => {
+      sidebar.classList.add('open');
+      sidebar.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    });
+  }
+  if (closeSidebarBtn && sidebar) {
+    closeSidebarBtn.addEventListener('click', () => {
+      sidebar.classList.remove('open');
+      sidebar.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    });
+  }
+
+  // Close sidebar when clicking outside
+  sidebar.addEventListener('click', (e) => {
+    if (e.target === sidebar) {
+      sidebar.classList.remove('open');
+      sidebar.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+  });
+
+  // Enable smooth scroll for all menu links
+  enableSmoothScroll();
+
+});  correct and give me a full code 

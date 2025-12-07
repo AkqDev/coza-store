@@ -7,9 +7,14 @@ header.sticky { position: fixed; top: 0; width: 100%; z-index: 999; background: 
 body.dark-mode { background: #111; color: #fff; }
 body.dark-mode header { background: #222; }
 body.dark-mode .product-card { background: #222; color: #fff; }
+/* Hero and banner overlay text in dark mode */
+body.dark-mode .text h1,
+body.dark-mode .text p,
+body.dark-mode .text button { color: #f0f0f0; }
+body.dark-mode section .overlay h2,
+body.dark-mode section .overlay p { color: #f0f0f0; }
 
 .product-card { transition: transform 0.3s ease; }
-
 
 * {
   margin: 0;
@@ -18,19 +23,14 @@ body.dark-mode .product-card { background: #222; color: #fff; }
   font-family: 'Poppins', sans-serif;
 }
 
-/* Header */
-header {
-  padding: 15px 30px;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  background: linear-gradient(90deg, #f0f0f0, #dcdcdc);
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: 70px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  z-index: 1000;
+/* Mobile menu button */
+.menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: #333;
 }
 
 /* Logo */
@@ -82,46 +82,77 @@ header {
   .navbar {
     display: none;
   }
-
+  .menu-btn {
+    display: block;
+  }
   header {
     justify-content: space-between;
   }
 }
 
-/* Display Section */
-.display {
+/* Sidebar (mobile) */
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -320px;
+  width: 300px;
+  height: 100vh;
+  background: #fff;
+  box-shadow: -4px 0 14px rgba(0,0,0,0.15);
+  z-index: 1200;
   display: flex;
-  justify-content: start;
+  flex-direction: column;
+  transition: right 0.4s ease, transform 0.4s ease;
+}
+.sidebar.open {
+  right: 0;
+}
+.sidebar-header {
+  display: flex;
   align-items: center;
-  background-image: url('slide-03.jpg');
-  background-repeat: no-repeat;
-  width: 100%;
-  height: 130vh;
-  background-position: 55%;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid #eee;
 }
-
-.text {
-  padding-left: 50px;
+.sidebar-header img {
+  width: 140px;
+  height: auto;
 }
-
-.text h1 {
-  font-size: 35px;
-  font-weight: lighter;
-}
-
-.text p {
-  font-size: 80px;
-  font-family: cursive;
-}
-
-.text button {
-  background-color: lightskyblue;
-  width: 180px;
-  color: rgb(0, 0, 0);
-  padding: 10px 20px;
+.close-sidebar {
+  background: none;
   border: none;
-  border-radius: 50px;
+  font-size: 22px;
   cursor: pointer;
+}
+.sidebar-nav ul {
+  list-style: none;
+  padding: 20px;
+}
+.sidebar-nav li {
+  margin-bottom: 14px;
+}
+.sidebar-nav a {
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+  font-weight: 500;
+}
+.sidebar-icons {
+  margin-top: auto;
+  padding: 16px 20px;
+  border-top: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+body.dark-mode .sidebar {
+  background: #222;
+}
+body.dark-mode .sidebar-nav a {
+  color: #f0f0f0;
+}
+body.dark-mode .sidebar-icons i {
+  color: #f0f0f0;
 }
 
 /* Banner Section */
@@ -130,134 +161,67 @@ section {
   flex-wrap: wrap;
   justify-content: space-around;
 }
-
 section .card {
   width: 450px;
   height: 305px;
   border: 2px solid #ccc;
   margin: 20px;
   box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.5);
+  position: relative;
 }
-
+/* Overlay texts to be targeted in dark mode */
+section .overlay {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  color: #111;
+}
 .card img {
   width: 100%;
   height: auto;
 }
-
 section .card:hover {
   transform: scale(1.05);
   transition: transform 0.3s ease-in-out;
   cursor: pointer;
 }
-
 section .card:nth-child(1) {
   padding: 50px;
   background-image: url('banner-01.jpg.webp');
   background-size: cover;
   background-position-x: 60%;
 }
-
 section .card:nth-child(2) {
   padding: 50px;
   background-image: url('banner-02 (1).jpg');
   background-size: cover;
   background-position-x: 60%;
 }
-
 section .card:nth-child(3) {
   background-position-x: 60%;
   padding: 50px;
   background-image: url('banner-03.jpg.webp');
   background-size: cover;
 }
-
 section .card:nth-child(1):hover {
   background-image: linear-gradient(rgba(8, 181, 250, 0.466), rgba(8, 181, 250, 0.466)), url('banner-01.jpg.webp');
 }
-
 section .card:nth-child(2):hover {
   background-image: linear-gradient(rgba(8, 181, 250, 0.466), rgba(8, 181, 250, 0.466)), url('banner-02 (1).jpg');
 }
-
 section .card:nth-child(3):hover {
   background-image: linear-gradient(rgba(8, 181, 250, 0.466), rgba(8, 181, 250, 0.466)), url('banner-03.jpg.webp');
 }
 
-/* Responsive Media Queries */
-@media (max-width: 1120px) {
-  .display {
-    height: 120vh;
-  }
-
-  .text {
-    padding-left: 30px;
-  }
-
-  .text h1 {
-    font-size: 30px;
-  }
-
-  .text p {
-    font-size: 60px;
-  }
-}
 
 @media (max-width: 767px) {
-  .display {
-    justify-content: center;
-    background-image: url('banner-02 (1).jpg');
-    height: 110vh;
-    background-position-x: 75%;
-    background-position-y: 20%;
-    text-align: center;
-    color: darkred;
-  }
-
-  .text {
-    padding-left: 0px;
-  }
-
-  .text h1 {
-    font-size: 40px;
-    font-weight: bold;
-  }
-
-  .text p {
-    font-size: 80px;
-  }
-
-  .navbar-product ul {
+.navbar-product ul {
     width: 600px;
   }
 }
 
 @media (max-width: 650px) {
-  .display {
-    justify-content: center;
-    background-image: url('banner-02 (1).jpg');
-    height: 90vh;
-    background-position-x: 65%;
-    background-position-y: 10%;
-    text-align: center;
-    color: darkred;
-  }
-
-  .text {
-    background-color: rgba(255, 255, 255, 0.532);
-    padding-left: 0px;
-  }
-
-  .text h1 {
-    font-size: 30px;
-    font-weight: bold;
-    font-family: sans-serif;
-  }
-
-  .text p {
-    font-size: 60px;
-  }
-
-  section .card {
+ section .card {
     height: 280px;
   }
 }
@@ -272,7 +236,6 @@ section .card:nth-child(3):hover {
     color:#222;
     position:relative;
 }
-
 .product-h1::after{
     content:"";
     display:block;
@@ -291,7 +254,6 @@ section .card:nth-child(3):hover {
     list-style:none;
     padding:15px 0;
 }
-
 .navbar-product li{
     font-size:18px;
     font-family:'Poppins', sans-serif;
@@ -300,16 +262,13 @@ section .card:nth-child(3):hover {
     position:relative;
     transition:color 0.3s ease;
 }
-
 .navbar-product a{
     text-decoration:none;
 }
-
 .navbar-product ul li:hover{
     color:lightskyblue;
     cursor:pointer;
 }
-
 .navbar-product ul li::after{
     content:"";
     position:absolute;
@@ -320,7 +279,6 @@ section .card:nth-child(3):hover {
     background:lightskyblue;
     transition:width 0.3s ease;
 }
-
 .navbar-product ul li:hover::after{
     width:100%;
 }
@@ -344,22 +302,18 @@ main{
     overflow:hidden;
     transition:transform 0.3s ease, box-shadow 0.3s ease;
 }
-
 .product-card:hover{
     transform:translateY(-8px);
     box-shadow:0 8px 20px rgba(0,0,0,0.2);
 }
-
 .product-card img{
     width:100%;
     transition:transform 0.4s ease;
     cursor:pointer;
 }
-
 .product-card img:hover{
     transform:scale(1.05);
 }
-
 .product-card h3{
     padding:10px;
     font-size:18px;
@@ -370,19 +324,16 @@ main{
     justify-content:space-between;
     align-items:center;
 }
-
 .product-card i{
     color:#999;
     font-size:18px;
     transition:color 0.3s ease, transform 0.3s ease;
     cursor:pointer;
 }
-
 .product-card i:hover{
     color:#e63946;
     transform:scale(1.2);
 }
-
 .product-card p{
     padding:0px 10px 15px;
     font-size:16px;
@@ -397,7 +348,6 @@ main{
     justify-content:center;
     margin:50px 0px;
 }
-
 .button button{
     background:lightskyblue;
     border:none;
@@ -411,7 +361,6 @@ main{
     cursor:pointer;
     transition:background 0.3s ease, transform 0.3s ease;
 }
-
 .button button:hover{
     background:#111;
     color:#fff;
@@ -424,7 +373,6 @@ main{
         width:26%;
     }
 }
-
 @media(max-width:870px){
     .product-card{
         width:42%;
@@ -433,7 +381,6 @@ main{
         font-size:16px;
     }
 }
-
 @media(max-width:550px){
     .product-card{
         width:80%;
@@ -450,7 +397,6 @@ footer{
     font-family:'Poppins', sans-serif;
     padding:40px 20px;
 }
-
 footer h1{
     font-size:1.6rem;
     font-weight:600;
@@ -458,7 +404,6 @@ footer h1{
     margin-bottom:20px;
     position:relative;
 }
-
 footer h1::after{
     content:"";
     display:block;
@@ -468,12 +413,10 @@ footer h1::after{
     margin-top:8px;
     border-radius:2px;
 }
-
 footer ul{
     list-style:none;
     padding:0;
 }
-
 footer li a{
     color:#bbb;
     line-height:32px;
@@ -481,34 +424,28 @@ footer li a{
     text-decoration:none;
     transition:color 0.3s ease;
 }
-
 footer li a:hover{
     color:lightskyblue;
 }
-
 .footer-child{
     flex:1 1 220px;
     margin:20px;
 }
-
 .footer-child p{
     font-size:14px;
     line-height:22px;
     color:#ccc;
 }
-
 .social-icons a{
     margin:0 8px;
     font-size:22px;
     color:#fff;
     transition:transform 0.3s ease, color 0.3s ease;
 }
-
 .social-icons a:hover{
     color:lightskyblue;
     transform:scale(1.2);
 }
-
 .footer-child input{
     width:80%;
     padding:10px;
@@ -520,12 +457,10 @@ footer li a:hover{
     text-align:center;
     transition:border 0.3s ease;
 }
-
 .footer-child input:focus{
     border:2px solid lightskyblue;
     outline:none;
 }
-
 .footer-child button{
     background:lightskyblue;
     border:none;
@@ -538,12 +473,10 @@ footer li a:hover{
     cursor:pointer;
     transition:background 0.3s ease, transform 0.3s ease;
 }
-
 .footer-child button:hover{
     background:#fff;
     transform:scale(1.05);
 }
-
 .last{
     padding:10px;
     text-align:center;
@@ -551,4 +484,4 @@ footer li a:hover{
     background-color:#ccc;
     font-family:'Poppins', sans-serif;
     font-size:14px;
-}
+}  
