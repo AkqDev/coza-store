@@ -7,7 +7,6 @@ header.sticky { position: fixed; top: 0; width: 100%; z-index: 999; background: 
 body.dark-mode { background: #111; color: #fff; }
 body.dark-mode header { background: #222; }
 body.dark-mode .product-card { background: #222; color: #fff; }
-/* Hero and banner overlay text in dark mode */
 body.dark-mode .text h1,
 body.dark-mode .text p,
 body.dark-mode .text button { color: #f0f0f0; }
@@ -31,12 +30,6 @@ body.dark-mode section .overlay p { color: #f0f0f0; }
   font-size: 22px;
   cursor: pointer;
   color: #333;
-}
-
-/* Logo */
-.logo img {
-  width: 160px;
-  height: auto;
 }
 
 /* Navbar */
@@ -119,10 +112,7 @@ body.dark-mode section .overlay p { color: #f0f0f0; }
     border-bottom: 1px solid #eee;
     background-color: inherit; /* Inherit background for dark mode consistency */
 }
-.sidebar-header img {
-    width: 140px;
-    height: auto;
-}
+
 .close-sidebar {
     background: none;
     border: none;

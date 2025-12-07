@@ -11,6 +11,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function getAllThemedElements() {
         return {
             header: document.querySelector('header'),
+            // >>> NEW: Select the icon inside the menu button
+            menuIcon: document.querySelector('.menu-btn i'), 
+            // >>> NEW: Select all icons inside the .icons container (excluding the theme toggle, which is handled separately)
+            headerIcons: document.querySelectorAll('.icons i:not(.theme-toggle)'), 
             heroTextContainers: document.querySelectorAll('.relative h4'), // Target h4's in the hero
             heroButton: document.querySelector('#home button'), // Target the Shop Now button
             overlayHeadings: document.querySelectorAll('section .overlay h2, section .overlay p'),
@@ -52,15 +56,31 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.linksAndText.forEach(el => {
             el.style.color = isDark ? '#f0f0f0' : '#333';
         });
+        
+        // --- START OF NEW/UPDATED LOGIC ---
 
-        // Specific overrides for HERO BANNER TEXT (THE FIX)
+        // NEW: Change Mobile Menu Button Icon Color
+        if (elements.menuIcon) {
+            elements.menuIcon.style.color = isDark ? '#f0f0f0' : '#000';
+        }
+
+        // Change Header Icons Color
+        elements.headerIcons.forEach(icon => {
+            // Check if the icon is a filled heart (product card hearts are styled elsewhere)
+            if (icon.classList.contains('fa-heart') && icon.classList.contains('fa-solid')) {
+                return; 
+            }
+            icon.style.color = isDark ? '#f0f0f0' : '#000';
+        });
+
+        // --- END OF NEW/UPDATED LOGIC ---
+
+        // Specific overrides for HERO BANNER TEXT 
         elements.heroTextContainers.forEach(h4 => {
             if (isDark) {
-                // Remove the Tailwind class that forces the text black
                 h4.classList.remove('text-black');
                 h4.style.color = '#f0f0f0';
             } else {
-                // Add the Tailwind class back for light mode contrast
                 h4.classList.add('text-black');
                 h4.style.color = ''; // Clear inline style
             }
@@ -86,11 +106,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Load theme on startup
     const savedTheme = localStorage.getItem('theme');
-    const isDarkMode = savedTheme === 'dark'; // True if dark mode is saved
+    const isDarkMode = savedTheme === 'dark'; 
     
     // Set initial state to Light Mode if no preference is saved (first time visit)
     if (savedTheme === null) {
-        applyDarkModeStyles(false); // Default to light mode
+        applyDarkModeStyles(false); 
     } else {
         if (isDarkMode) {
             document.body.classList.add('dark-mode');
@@ -110,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ===== MOBILE SIDEBAR FIX ☰/✖️ =====
+    // ===== MOBILE SIDEBAR FIX ☰/✖️ (Existing) =====
     if (menuBtn && sidebar) {
         menuBtn.addEventListener('click', () => {
             sidebar.classList.add('open');
@@ -138,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- All Other Existing Functionality (No major changes needed) ---
 
-    // ===== HERO BUTTON SCROLL (Corrected selector) =====
+    // ===== HERO BUTTON SCROLL (Existing) =====
     const heroBtn = document.querySelector('#home button');
     if (heroBtn) {
         heroBtn.addEventListener('click', () => {
@@ -149,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ===== NAVBAR SMOOTH SCROLL (header + sidebar) =====
+    // ===== NAVBAR SMOOTH SCROLL (Existing) =====
     function enableSmoothScroll() {
         const links = document.querySelectorAll('.scroll-link');
         links.forEach(link => {
@@ -160,7 +180,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     const target = document.querySelector(href);
                     if (target) {
                         target.scrollIntoView({ behavior: 'smooth' });
-                        // close sidebar if open
                         if (sidebar.classList.contains('open')) {
                             sidebar.classList.remove('open');
                             sidebar.setAttribute('aria-hidden', 'true');
