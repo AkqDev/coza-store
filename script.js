@@ -349,9 +349,6 @@ document.addEventListener('DOMContentLoaded', () => {
             window.dispatchEvent(new Event('scroll'));
         });
     });
-
-
-    // ===== HOVER ZOOM ANIMATION (Existing) =====
     function addHoverZoom(root = document) {
         const productCards = root.querySelectorAll('.product-card');
         productCards.forEach(card => {
