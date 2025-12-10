@@ -156,8 +156,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- All Other Existing Functionality (No major changes needed) ---
-
     // ===== HERO BUTTON SCROLL (Existing) =====
     const heroBtn = document.querySelector('#home button');
     if (heroBtn) {
@@ -191,7 +189,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ===== Banner card click (Existing) =====
     const bannerCards = document.querySelectorAll('section .card');
     bannerCards.forEach((card, index) => {
         card.addEventListener('click', () => {
@@ -199,7 +196,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ===== PRODUCT ICONS (LIKE/HEART) (Existing) =====
     function activateProductIcons(root = document) {
         const productIcons = root.querySelectorAll('.product-card i.fa-regular.fa-heart');
         productIcons.forEach(icon => {
@@ -213,7 +209,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     activateProductIcons();
 
-    // ===== LOAD MORE PRODUCTS (Existing) =====
     const loadMoreBtn = document.querySelector('.button button');
     if (loadMoreBtn) {
         loadMoreBtn.addEventListener('click', () => {
@@ -236,7 +231,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ===== NEWSLETTER SUBSCRIBE (Existing) =====
     const newsletterBtn = document.querySelector('.footer-child button');
     if (newsletterBtn) {
         newsletterBtn.addEventListener('click', () => {
@@ -250,7 +244,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ===== REVEAL ELEMENTS ON SCROLL (Existing) =====
     let revealElements = [];
     function updateRevealElements() {
         revealElements = Array.from(document.querySelectorAll('.product-card, section .card'));
