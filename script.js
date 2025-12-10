@@ -268,7 +268,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ===== STICKY HEADER (Existing) =====
     const header = document.querySelector('header');
     window.addEventListener('scroll', () => {
         if (window.scrollY > 100) {
@@ -278,7 +277,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // ===== BACK TO TOP BUTTON (Existing Function) =====
     function createBackToTopButton() {
         const btn = document.createElement('button');
         btn.className = 'back-to-top';
