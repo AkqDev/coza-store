@@ -23,9 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
-    // ===== DARK/LIGHT MODE LOGIC 🌙/☀️ =====
     const LIGHT_BG = '#fff';
-    const DARK_BG = '#2c2c2c'; // Lighter black
+    const DARK_BG = '#2c2c2c';
     const DARK_HEADER_FOOTER = '#333333';
     const LIGHT_HEADER_BG = '#EAE8E7';
 
@@ -38,24 +37,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const headerEl = elements.header;
         const mainElements = document.querySelectorAll('main, body');
 
-        // Body and main background
         document.body.style.backgroundColor = isDark ? DARK_BG : LIGHT_BG;
         mainElements.forEach(el => el.style.backgroundColor = isDark ? DARK_BG : LIGHT_BG);
         document.body.style.color = isDark ? '#f0f0f0' : '#333';
 
-        // Header and Footer background
         if (headerEl) headerEl.style.backgroundColor = isDark ? DARK_HEADER_FOOTER : LIGHT_HEADER_BG;
         if (elements.footer) elements.footer.style.backgroundColor = isDark ? DARK_HEADER_FOOTER : '#f8f8f8';
         if (elements.lastDiv) elements.lastDiv.style.backgroundColor = isDark ? '#444' : '#e5e5e5';
 
-        // Text/Link Color
         elements.linksAndText.forEach(el => {
             el.style.color = isDark ? '#f0f0f0' : '#333';
         });
         
         // --- START OF NEW/UPDATED LOGIC ---
-
-        // NEW: Change Mobile Menu Button Icon Color
         if (elements.menuIcon) {
             elements.menuIcon.style.color = isDark ? '#f0f0f0' : '#000';
         }
